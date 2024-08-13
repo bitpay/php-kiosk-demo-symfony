@@ -17,7 +17,7 @@ class Payment
     private ?int $id = null;
 
     #[ORM\Column(nullable: true)]
-    private ?int $amountPaid = null;
+    private ?float $amountPaid = null;
 
     #[ORM\Column(nullable: true)]
     private ?string $displayAmountPaid = null;
@@ -61,12 +61,12 @@ class Payment
         return $this->id;
     }
 
-    public function getAmountPaid(): ?int
+    public function getAmountPaid(): ?float
     {
         return $this->amountPaid;
     }
 
-    public function setAmountPaid(?int $amountPaid): void
+    public function setAmountPaid(?float $amountPaid): void
     {
         $this->amountPaid = $amountPaid;
     }

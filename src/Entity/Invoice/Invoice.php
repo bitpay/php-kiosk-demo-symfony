@@ -53,7 +53,7 @@ class Invoice
     private ?string $bitpayGuid;
 
     #[ORM\Column]
-    private bool $exceptionStatus = false;
+    private string $exceptionStatus = 'false';
 
     #[ORM\Column(nullable: true)]
     private ?string $bitpayUrl;
@@ -298,7 +298,7 @@ class Invoice
     /**
      * @return bool
      */
-    public function getExceptionStatus(): bool
+    public function getExceptionStatus(): string
     {
         return $this->exceptionStatus;
     }
@@ -306,7 +306,7 @@ class Invoice
     /**
      * @param bool $exceptionStatus
      */
-    public function setExceptionStatus(bool $exceptionStatus): void
+    public function setExceptionStatus(string $exceptionStatus): void
     {
         $this->exceptionStatus = $exceptionStatus;
     }
