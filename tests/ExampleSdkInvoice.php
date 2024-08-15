@@ -40,7 +40,7 @@ class ExampleSdkInvoice
         $invoice->setItemCode('Test item code');
         $invoice->setPhysical(true);
         $invoice->setPaymentCurrencies(['BTC']);
-        $invoice->setAcceptanceWindow(1.1);
+        $invoice->setAcceptanceWindow(11);
         $invoice->setCloseURL('http://test.com');
         $invoice->setAutoRedirect(true);
         $invoice->setRefundAddresses(['Test refund address']);
@@ -49,10 +49,10 @@ class ExampleSdkInvoice
         $invoice->setStatus('pending');
         $invoice->setLowFeeDetected(false);
         $invoice->setInvoiceTime(1620734545366);
-        $invoice->setExpirationTime('1620734880748');
-        $invoice->setCurrentTime('1620733980807');
+        $invoice->setExpirationTime(1620734880748);
+        $invoice->setCurrentTime(1620733980807);
         $invoice->setTransactions(self::getTransactions());
-        $invoice->setExceptionStatus(false);
+        $invoice->setExceptionStatus('false');
         $invoice->setTargetConfirmations(6);
         $invoice->setRefundAddressRequestPending(false);
         $invoice->setBuyerProvidedEmail('test@email.com');
@@ -341,7 +341,7 @@ class ExampleSdkInvoice
         $minerFees = new MinerFees();
         $item = new MinerFeesItem();
         $item->setSatoshisPerByte(1.0);
-        $item->setTotalFee(100.0);
+        $item->setTotalFee(100);
         $item->setFiatAmount(0.02);
 
         $minerFees->setBTC($item);

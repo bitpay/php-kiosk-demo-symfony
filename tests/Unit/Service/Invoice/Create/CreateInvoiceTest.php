@@ -27,6 +27,7 @@ use App\Service\Shared\Logger;
 use App\Service\Shared\UrlProvider;
 use BitPaySDK\Client;
 use BitPaySDK\Exceptions\BitPayException;
+use BitPaySDK\Exceptions\BitPayGenericException;
 use PHPUnit\Framework\TestCase;
 
 class CreateInvoiceTest extends TestCase
@@ -81,7 +82,7 @@ class CreateInvoiceTest extends TestCase
         $urlProvider->method('applicationUrl')->willReturn('http://localhost');
         $uuidFactory->method('create')->willReturn($uuid);
         $bitPayClientFactory->method('create')->willReturn($bitPayClient);
-        $bitPayClient->expects(self::once())->method('createInvoice')->willThrowException(new BitPayException());
+        $bitPayClient->expects(self::once())->method('createInvoice')->willThrowException(new BitPayGenericException());
         $logger->expects(self::once())->method('error');
         $this->expectException(\RuntimeException::class);
 
