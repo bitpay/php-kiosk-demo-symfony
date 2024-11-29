@@ -65,7 +65,7 @@ class Invoice
     private ?string $closeUrl;
 
     #[ORM\Column(nullable: true)]
-    private ?float $acceptanceWindow;
+    private ?int $acceptanceWindow;
 
     #[ORM\Column(nullable: true)]
     private ?string $token;
@@ -360,17 +360,17 @@ class Invoice
     }
 
     /**
-     * @return float|null
+     * @return int|null
      */
-    public function getAcceptanceWindow(): ?float
+    public function getAcceptanceWindow(): ?int
     {
         return $this->acceptanceWindow;
     }
 
     /**
-     * @param float|null $acceptanceWindow
+     * @param int|null $acceptanceWindow
      */
-    public function setAcceptanceWindow(?float $acceptanceWindow): void
+    public function setAcceptanceWindow(?int $acceptanceWindow): void
     {
         $this->acceptanceWindow = $acceptanceWindow;
     }

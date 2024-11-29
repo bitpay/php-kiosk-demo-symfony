@@ -10,7 +10,7 @@ namespace App\Tests\Integration;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class AbstractIntegrationTest extends WebTestCase
+abstract class AbstractIntegrationTest extends WebTestCase
 {
     public function setUp(): void
     {

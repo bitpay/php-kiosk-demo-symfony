@@ -12,7 +12,7 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 
 class BitPayDateTimeDenormalizer implements DenormalizerInterface
 {
-    public function denormalize(mixed $data, string $type, string $format = null, array $context = [])
+    public function denormalize(mixed $data, string $type, string $format = null, array $context = []): mixed
     {
         $convertedTimestamp = (int)($data / 1000);
         $dateTime = new \DateTime();
@@ -21,7 +21,7 @@ class BitPayDateTimeDenormalizer implements DenormalizerInterface
         return \DateTimeImmutable::createFromMutable($dateTime);
     }
 
-    public function supportsDenormalization(mixed $data, string $type, string $format = null, array $context = [])
+    public function supportsDenormalization(mixed $data, string $type, string $format = null, array $context = []): bool
     {
         return $context['bitpayTime'] ?? false;
     }
