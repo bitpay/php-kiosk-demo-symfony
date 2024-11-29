@@ -1,7 +1,7 @@
 bitpay:
   facade: pos
   mode: standard  # standard/donation
-  token:
+  token: test
   notificationEmail:
   environment: 'test'
   design:
