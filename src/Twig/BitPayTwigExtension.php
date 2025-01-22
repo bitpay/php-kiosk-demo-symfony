@@ -24,7 +24,7 @@ class BitPayTwigExtension extends AbstractExtension
         $this->sseConfiguration = $sseConfiguration;
     }
 
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return [
             new TwigFunction('getBitPayConfiguration', [$this, 'getBitPayConfiguration']),

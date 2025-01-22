@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace App\Controller\Invoice;
 
 use App\Exception\MissingEntity;
+use App\Exception\SignatureVerificationFailed;
 use App\Service\Invoice\Update\UpdateInvoiceUsingBitPayIpn;
 use App\Service\Shared\Logger;
 use Symfony\Component\HttpFoundation\Request;
@@ -32,13 +33,15 @@ class UpdateInvoice
         $this->logger->info('IPN_RECEIVED', 'Received IPN', $request->request->all());
 
         $content = $request->toArray();
-        $event = $content['event']['name'] ?? null;
 
         try {
-            $this->updateInvoice->byUuid($uuid, $event);
+            $this->updateInvoice->byUuid($uuid, $content, $request->headers->all());
         } catch (MissingEntity $e) {
             $this->logError($e);
             return new Response(null, Response::HTTP_NOT_FOUND);
+        } catch (SignatureVerificationFailed $e) {
+            $this->logError($e);
+            return new Response($e->getMessage(), Response::HTTP_UNAUTHORIZED);
         } catch (\Exception $e) {
             $this->logError($e);
             return new Response('Unable to process update', Response::HTTP_BAD_REQUEST);

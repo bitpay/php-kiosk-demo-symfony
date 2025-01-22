@@ -10,6 +10,7 @@ namespace App\Service\Invoice\Update;
 
 use App\Configuration\BitPayConfigurationInterface;
 use App\Exception\MissingEntity;
+use App\Exception\SignatureVerificationFailed;
 use App\Factory\BitPayClientFactory;
 use App\Repository\Invoice\InvoiceRepositoryInterface;
 use App\Service\Invoice\BitPayInvoiceToEntityConverter;
@@ -23,6 +24,7 @@ class UpdateInvoiceUsingBitPayIpn
     private Logger $logger;
     private BitPayInvoiceToEntityConverter $bitPayInvoiceToEntityConverter;
     private SendUpdateInvoiceEventStreamNotification $sendUpdateInvoiceNotification;
+    private BitPayIpnValidator $bitPayIpnValidator;
 
     public function __construct(
         InvoiceRepositoryInterface $invoiceRepository,
@@ -30,7 +32,8 @@ class UpdateInvoiceUsingBitPayIpn
         BitPayConfigurationInterface $bitPayConfiguration,
         BitPayInvoiceToEntityConverter $bitPayInvoiceToEntityConverter,
         SendUpdateInvoiceEventStreamNotification $sendUpdateInvoiceEventStreamNotification,
-        Logger $logger
+        Logger $logger,
+        BitPayIpnValidator $bitPayIpnValidator
     ) {
         $this->invoiceRepository = $invoiceRepository;
         $this->bitPayClientFactory = $bitPayClientFactory;
@@ -38,17 +41,20 @@ class UpdateInvoiceUsingBitPayIpn
         $this->sendUpdateInvoiceNotification = $sendUpdateInvoiceEventStreamNotification;
         $this->logger = $logger;
         $this->bitPayInvoiceToEntityConverter = $bitPayInvoiceToEntityConverter;
+        $this->bitPayIpnValidator = $bitPayIpnValidator;
     }
 
     /**
      * @param string $uuid
      */
-    public function byUuid(string $uuid, ?string $event): void
+    public function byUuid(string $uuid, array $data, array $headers): void
     {
         $invoice = $this->invoiceRepository->findOneByUuid($uuid);
         if (!$invoice) {
             throw new MissingEntity('Missing invoice');
         }
+
+        $event = $data['event']['name'] ?? null;
 
         try {
             $client = $this->bitPayClientFactory->create();
@@ -62,6 +68,7 @@ class UpdateInvoiceUsingBitPayIpn
                 throw new \InvalidArgumentException('Missing invoice in BitPay with BitPayId ' . $bitPayId);
             }
 
+            $this->bitPayIpnValidator->execute($data, $headers);
             $invoice = $this->bitPayInvoiceToEntityConverter->execute($bitPayInvoice, $uuid);
 
             $this->logger->info('IPN_VALIDATE_SUCCESS', 'Successfully validated IP', ['bitpay_id' => $bitPayId]);
@@ -72,6 +79,11 @@ class UpdateInvoiceUsingBitPayIpn
                 'id' => $invoice->getId()
             ]);
             $this->sendUpdateInvoiceNotification->execute($invoice, $event);
+        } catch (SignatureVerificationFailed $e) {
+            $this->logger->error('SIGNATURE_VERIFICATION_FAIL', 'Failed to verify signature', [
+                'uuid' => $uuid
+            ]);
+            throw $e;
         } catch (MissingEntity | \InvalidArgumentException $e) {
             $this->logger->error('INVOICE_UPDATE_FAIL', 'Failed to update invoice', [
                 'uuid' => $uuid
