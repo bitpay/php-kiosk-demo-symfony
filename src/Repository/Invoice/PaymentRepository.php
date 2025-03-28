@@ -7,7 +7,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<InvoicePayment>
+ * @extends ServiceEntityRepository<Payment>
  *
  * @method Payment|null find($id, $lockMode = null, $lockVersion = null)
  * @method Payment|null findOneBy(array $criteria, array $orderBy = null)

@@ -7,7 +7,7 @@ on:
       - reopened
   push:
     branches-ignore:
-      - 'main'
+      - "main"
 
 jobs:
   unit-tests:
@@ -15,7 +15,7 @@ jobs:
 
     strategy:
       matrix:
-        php-version: [ 8.1, 8.2 ]
+        php-version: [8.1, 8.2, 8.3]
 
     steps:
       - uses: actions/checkout@v4
@@ -24,7 +24,7 @@ jobs:
           php_version: ${{ matrix.php-version }}
           args: --ignore-platform-reqs
       - name: PHPUnit Unit Tests
-        uses: php-actions/phpunit@v3
+        uses: php-actions/phpunit@v4
         with:
           configuration: phpunit.xml.dist
           php_version: ${{ matrix.php-version }}
@@ -37,7 +37,7 @@ jobs:
 
     strategy:
       matrix:
-        php-version: [ 8.1, 8.2 ]
+        php-version: [8.1, 8.2, 8.3]
 
     steps:
       - uses: actions/checkout@v4
@@ -50,7 +50,7 @@ jobs:
           php bin/console doctrine:database:create
           php bin/console doctrine:schema:update --force --env=test
       - name: PHPUnit Integration Tests
-        uses: php-actions/phpunit@v3
+        uses: php-actions/phpunit@v4
         with:
           configuration: phpunit.xml.dist
           php_version: ${{ matrix.php-version }}
@@ -63,7 +63,7 @@ jobs:
 
     strategy:
       matrix:
-        php-version: [ 8.1, 8.2 ]
+        php-version: [8.1, 8.2, 8.3]
 
     steps:
       - uses: actions/checkout@v4
