@@ -14,7 +14,7 @@ use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<PaymentCurrencyExchangeRate>
+ * @extends ServiceEntityRepository<Invoice>
  *
  * @method Invoice|null find($id, $lockMode = null, $lockVersion = null)
  * @method Invoice|null findOneBy(array $criteria, array $orderBy = null)

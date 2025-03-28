@@ -304,7 +304,7 @@ class Invoice
     }
 
     /**
-     * @param bool $exceptionStatus
+     * @param string $exceptionStatus
      */
     public function setExceptionStatus(string $exceptionStatus): void
     {

@@ -7,7 +7,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<InvoiceBuyerProvidedInfo>
+ * @extends ServiceEntityRepository<BuyerProvidedInfo>
  *
  * @method BuyerProvidedInfo|null find($id, $lockMode = null, $lockVersion = null)
  * @method BuyerProvidedInfo|null findOneBy(array $criteria, array $orderBy = null)
