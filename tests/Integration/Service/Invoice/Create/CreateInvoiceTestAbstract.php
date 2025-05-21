@@ -12,14 +12,14 @@ use App\Configuration\BitPayConfigurationFactoryInterface;
 use App\Factory\BitPayClientFactory;
 use App\Repository\Invoice\InvoiceRepository;
 use App\Service\Invoice\Create\CreateInvoice;
-use App\Tests\Integration\AbstractIntegrationTest;
+use App\Tests\Integration\AbstractIntegrationTestCase;
 use BitPaySDK\Client;
 use BitPaySDK\Model\Facade;
 use BitPaySDK\Model\Invoice\Invoice;
 use BitPaySDK\PosClient;
 use App\Tests\ExampleSdkInvoice;
 
-class CreateInvoiceTestAbstract extends AbstractIntegrationTest
+class CreateInvoiceTestAbstract extends AbstractIntegrationTestCase
 {
     /**
      * @test

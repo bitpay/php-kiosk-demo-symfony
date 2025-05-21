@@ -30,7 +30,8 @@ jobs:
           php_version: ${{ matrix.php-version }}
           php_extensions: bcmath gmp xdebug
           testsuite: Unit
-          version: 9
+          args: --no-coverage
+          version: 10.5
 
   integration-tests:
     runs-on: ubuntu-latest
@@ -47,7 +48,8 @@ jobs:
           args: --ignore-platform-reqs
       - name: Prepare DB
         run: |
-          php bin/console doctrine:database:create
+          mkdir -p $(dirname $GITHUB_WORKSPACE/bitpay.sqlite)
+          touch $GITHUB_WORKSPACE/bitpay.sqlite
           php bin/console doctrine:schema:update --force --env=test
       - name: PHPUnit Integration Tests
         uses: php-actions/phpunit@v4
@@ -56,7 +58,8 @@ jobs:
           php_version: ${{ matrix.php-version }}
           php_extensions: bcmath gmp xdebug
           testsuite: Integration
-          version: 9
+          version: 10.5
+          args: --no-coverage
 
   phpcs:
     runs-on: ubuntu-latest

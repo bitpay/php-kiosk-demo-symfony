@@ -15,13 +15,13 @@ use App\Repository\Invoice\InvoiceRepositoryInterface;
 use App\Service\Invoice\Update\UpdateInvoiceUsingBitPayIpn;
 use App\Tests\ExampleInvoice;
 use App\Tests\ExampleSdkInvoice;
-use App\Tests\Integration\AbstractIntegrationTest;
+use App\Tests\Integration\AbstractIntegrationTestCase;
 use BitPaySDK\Client;
 use BitPaySDK\Model\Facade;
 use BitPaySDK\Model\Invoice\Invoice;
 use BitPaySDK\PosClient;
 
-class UpdateInvoiceUsingBitPayIpnTestAbstract extends AbstractIntegrationTest
+class UpdateInvoiceUsingBitPayIpnTestAbstract extends AbstractIntegrationTestCase
 {
     /**
      * @test
@@ -60,7 +60,7 @@ class UpdateInvoiceUsingBitPayIpnTestAbstract extends AbstractIntegrationTest
         $this->expectException(\RuntimeException::class);
 
         // when
-        $this->getTestedClass()->byUuid($uuid, null);
+        $this->getTestedClass()->byUuid($uuid, [], []);
     }
 
     /**
@@ -112,7 +112,7 @@ class UpdateInvoiceUsingBitPayIpnTestAbstract extends AbstractIntegrationTest
         $container->set(BitPayClientFactory::class, $clientFactory);
 
         // when
-        $this->getTestedClass()->byUuid($uuid, null);
+        $this->getTestedClass()->byUuid($uuid, [], []);
         /** @var \App\Entity\Invoice\Invoice $invoice */
         $invoice = $invoiceRepository->findOneByUuid($uuid);
 
