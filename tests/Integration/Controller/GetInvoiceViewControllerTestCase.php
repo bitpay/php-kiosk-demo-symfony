@@ -10,10 +10,10 @@ namespace App\Tests\Integration\Controller;
 
 use App\Repository\Invoice\InvoiceRepositoryInterface;
 use App\Tests\ExampleInvoice;
-use App\Tests\Integration\AbstractIntegrationTest;
+use App\Tests\Integration\AbstractIntegrationTestCase;
 use Symfony\Component\HttpFoundation\Request;
 
-class GetInvoiceViewControllerTestCase extends AbstractIntegrationTest
+class GetInvoiceViewControllerTestCase extends AbstractIntegrationTestCase
 {
     /**
      * @test

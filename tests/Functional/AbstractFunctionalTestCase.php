@@ -15,6 +15,7 @@ class AbstractFunctionalTestCase extends WebTestCase
     public function setUp(): void
     {
         putenv("CONFIG_FILE=application-functional.yaml");
+
         parent::setUp();
     }
 
