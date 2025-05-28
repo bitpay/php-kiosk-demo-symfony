@@ -10,7 +10,7 @@
         "bitpay/sdk": "^9.0.4",
         "doctrine/doctrine-bundle": "^2.14",
         "doctrine/doctrine-migrations-bundle": "^3.2",
-        "doctrine/orm": "^2.15",
+        "doctrine/orm": "^3.3",
         "knplabs/knp-paginator-bundle": "^6.7",
         "phpdocumentor/reflection-docblock": "^5.3",
         "phpstan/phpdoc-parser": "^2.1",
@@ -84,7 +84,8 @@
         ],
         "post-update-cmd": [
             "@auto-scripts"
-        ]
+        ],
+        "check": "phpcs src tests && phpcbf src tests"
     },
     "conflict": {
         "symfony/symfony": "*"
@@ -96,8 +97,8 @@
         }
     },
     "require-dev": {
-        "dama/doctrine-test-bundle": "^8.2",
-        "phpunit/phpunit": "^9.6",
+        "dama/doctrine-test-bundle": "^8.3",
+        "phpunit/phpunit": "^10.5",
         "symfony/browser-kit": "6.4.*",
         "symfony/css-selector": "6.4.*",
         "symfony/debug-bundle": "6.4.*",

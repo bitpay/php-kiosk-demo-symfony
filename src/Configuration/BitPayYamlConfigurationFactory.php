@@ -42,7 +42,8 @@ class BitPayYamlConfigurationFactory implements BitPayConfigurationFactoryInterf
                     file_get_contents($this->applicationDir . DIRECTORY_SEPARATOR . $configurationFile)
                 );
                 break;
-            } catch (\Exception $e) {
+            } catch (\Throwable $e) {
+                continue;
             }
         }
 

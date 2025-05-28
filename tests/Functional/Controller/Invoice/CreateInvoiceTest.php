@@ -14,6 +14,7 @@ use App\Entity\Invoice\Invoice;
 use App\Repository\Invoice\InvoiceRepositoryInterface;
 use App\Tests\Functional\AbstractFunctionalTestCase;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class CreateInvoiceTest extends AbstractFunctionalTestCase
 {
@@ -32,13 +33,14 @@ class CreateInvoiceTest extends AbstractFunctionalTestCase
             Request::METHOD_POST,
             '/invoices',
             [
-                '_token' => 'FsBmW4CMKpw8zjEBO9F3TQu9tGBbcTJkPQPKcGv7',
                 'store' => 'store-1',
                 'register' => '2',
                 'reg_transaction_no' => 'test123',
                 'price' => '23.54'
             ],
         );
+
+        $this->validateResponse($client->getResponse());
 
         /** @var InvoiceRepositoryInterface $invoiceRepository */
         $invoiceRepository = $container->get(InvoiceRepositoryInterface::class);
@@ -88,6 +90,8 @@ class CreateInvoiceTest extends AbstractFunctionalTestCase
             ]
         );
 
+        $this->validateResponse($client->getResponse());
+
         /** @var InvoiceRepositoryInterface $invoiceRepository */
         $invoiceRepository = $container->get(InvoiceRepositoryInterface::class);
         /** @var Invoice $invoice */
@@ -106,5 +110,16 @@ class CreateInvoiceTest extends AbstractFunctionalTestCase
         self::assertEquals(23.54, $invoice->getPrice());
         self::assertEquals($expectedName, $invoiceBuyerProvidedInfo->getName());
         self::assertEquals($expectedPhone, $invoiceBuyerProvidedInfo->getPhoneNumber());
+    }
+
+    private function validateResponse(Response $response): void
+    {
+        if ($response->getStatusCode() === Response::HTTP_INTERNAL_SERVER_ERROR) {
+            $docsUrl = 'https://developer.bitpay.com/docs/signed-request-flow#request-generate-token';
+            throw new \Exception(
+                'Configuration error. The functional test requires a valid BitPay token.' .
+                'Please refer to ' . $docsUrl . ' for more information.'
+            );
+        }
     }
 }
