@@ -14,6 +14,7 @@ use App\Configuration\Donation;
 use App\Configuration\Field;
 use App\Configuration\Mode;
 use App\Configuration\PosData;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 class BitPayConfigurationTest extends TestCase
@@ -23,27 +24,21 @@ class BitPayConfigurationTest extends TestCase
     private const FACADE = 'merchant';
     private const NOTIFICATION_EMAIL = 'some@email.com';
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_should_return_environemnt(): void
     {
         $testedClass = $this->getTestedClass();
         self::assertEquals(self::ENV, $testedClass->getEnvironment());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_should_return_facade(): void
     {
         $testedClass = $this->getTestedClass();
         self::assertEquals(self::FACADE, $testedClass->getFacade());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_should_return_design(): void
     {
         $design = $this->getDesign();
@@ -51,27 +46,21 @@ class BitPayConfigurationTest extends TestCase
         self::assertEquals($design, $testedClass->getDesign());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_should_return_token(): void
     {
         $testedClass = $this->getTestedClass();
         self::assertEquals(self::TOKEN, $testedClass->getToken());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_should_return_notification_email(): void
     {
         $testedClass = $this->getTestedClass();
         self::assertEquals(self::NOTIFICATION_EMAIL, $testedClass->getNotificationEmail());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_should_return_is_sign_request(): void
     {
         $testedClass = new BitPayConfiguration(
@@ -97,9 +86,7 @@ class BitPayConfigurationTest extends TestCase
         self::assertEquals(true, $testedClass->isSignRequest());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_should_return_iso_code(): void
     {
         // given
@@ -135,9 +122,7 @@ class BitPayConfigurationTest extends TestCase
         self::assertEquals($currency, $result);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_should_return_usd_as_default_currency(): void
     {
         // given
@@ -163,10 +148,7 @@ class BitPayConfigurationTest extends TestCase
         self::assertEquals('USD', $result);
     }
 
-    /**
-     * @test
-     * @throws \PHPUnit\Framework\MockObject\Exception
-     */
+    #[Test]
     public function it_should_return_donation(): void
     {
         $donation = $this->getDonation();
@@ -188,10 +170,7 @@ class BitPayConfigurationTest extends TestCase
         self::assertSame($donation, $result);
     }
 
-    /**
-     * @test
-     * @throws \PHPUnit\Framework\MockObject\Exception
-     */
+    #[Test]
     public function it_should_return_mode(): void
     {
         $testedClass = new BitPayConfiguration(

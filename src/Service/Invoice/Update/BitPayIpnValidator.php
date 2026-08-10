@@ -8,7 +8,7 @@ use App\Exception\SignatureVerificationFailed;
 use App\Configuration\BitPayConfigurationInterface;
 use RuntimeException;
 
-final class BitPayIpnValidator
+final class BitPayIpnValidator implements BitPayIpnValidatorInterface
 {
     public const MISSING_SIGNATURE_MESSAGE = 'Missing signature header';
     public const INVALID_SIGNATURE_MESSAGE = 'Invalid signature';

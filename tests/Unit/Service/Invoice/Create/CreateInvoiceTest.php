@@ -26,15 +26,13 @@ use App\Service\Invoice\Create\PosParamsValidator;
 use App\Service\Shared\Logger;
 use App\Service\Shared\UrlProvider;
 use BitPaySDK\Client;
-use BitPaySDK\Exceptions\BitPayException;
 use BitPaySDK\Exceptions\BitPayGenericException;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 class CreateInvoiceTest extends TestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function it_should_log_error_for_invalid_create_invoice_process(): void
     {
         $uuid = 'someUuid';
@@ -89,9 +87,7 @@ class CreateInvoiceTest extends TestCase
         $createInvoice->execute($params);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_should_create_standard_invoice(): void
     {
         $uuid = 'someUuid';
@@ -153,9 +149,7 @@ class CreateInvoiceTest extends TestCase
         self::assertEquals($appInvoice, $result);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_should_create_donation_invoice(): void
     {
         $uuid = 'someUuid';

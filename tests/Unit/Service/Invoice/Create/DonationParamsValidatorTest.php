@@ -11,13 +11,12 @@ namespace App\Tests\Unit\Service\Invoice\Create;
 use App\Service\Invoice\Create\DonationParamsValidator;
 use App\Service\Invoice\Create\PosParamsValidator;
 use App\Exception\ValidationFailed;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 class DonationParamsValidatorTest extends TestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function it_should_throws_exception_for_invalid_name(): void
     {
         $this->expectException(ValidationFailed::class);
@@ -39,9 +38,7 @@ class DonationParamsValidatorTest extends TestCase
         $testedClass->execute($params);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_should_throws_exception_for_invalid_address(): void
     {
         $this->expectException(ValidationFailed::class);
@@ -63,9 +60,7 @@ class DonationParamsValidatorTest extends TestCase
         $testedClass->execute($params);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_should_throws_exception_for_invalid_locality(): void
     {
         $this->expectException(ValidationFailed::class);
@@ -87,9 +82,7 @@ class DonationParamsValidatorTest extends TestCase
         $testedClass->execute($params);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_should_throws_exception_for_invalid_region(): void
     {
         $this->expectException(ValidationFailed::class);
@@ -111,9 +104,7 @@ class DonationParamsValidatorTest extends TestCase
         $testedClass->execute($params);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_should_throws_exception_for_invalid_postal_code()
     {
         $this->expectException(ValidationFailed::class);
@@ -135,9 +126,7 @@ class DonationParamsValidatorTest extends TestCase
         $testedClass->execute($params);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_should_throws_exception_for_invalid_phone()
     {
         $this->expectException(ValidationFailed::class);
@@ -159,9 +148,7 @@ class DonationParamsValidatorTest extends TestCase
         $testedClass->execute($params);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_should_throws_exception_for_invalid_email()
     {
         $this->expectException(ValidationFailed::class);
@@ -183,9 +170,7 @@ class DonationParamsValidatorTest extends TestCase
         $testedClass->execute($params);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_should_returns_validated_params(): void
     {
         $testedClass = $this->getTestedClass();

@@ -11,13 +11,12 @@ namespace App\Tests\Integration\Controller;
 use App\Repository\Invoice\InvoiceRepositoryInterface;
 use App\Tests\ExampleInvoice;
 use App\Tests\Integration\AbstractIntegrationTestCase;
+use PHPUnit\Framework\Attributes\Test;
 use Symfony\Component\HttpFoundation\Request;
 
 class GetInvoiceViewControllerTestCase extends AbstractIntegrationTestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function it_should_show_invoice_view(): void
     {
         $client = static::createClient();

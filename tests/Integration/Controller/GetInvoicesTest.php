@@ -10,14 +10,13 @@ namespace App\Tests\Integration\Controller;
 
 use App\Repository\Invoice\InvoiceRepositoryInterface;
 use App\Tests\ExampleInvoice;
+use PHPUnit\Framework\Attributes\Test;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Request;
 
 class GetInvoicesTest extends WebTestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function it_should_show_invoices_on_grid(): void
     {
         $client = static::createClient();

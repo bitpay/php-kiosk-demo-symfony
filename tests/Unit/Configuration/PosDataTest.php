@@ -10,13 +10,12 @@ namespace App\Tests\Unit\Configuration;
 
 use App\Configuration\Field;
 use App\Configuration\PosData;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 class PosDataTest extends TestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function it_should_return_fields(): void
     {
         $field = $this->createMock(Field::class);

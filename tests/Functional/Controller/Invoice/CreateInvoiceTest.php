@@ -13,14 +13,13 @@ use App\Configuration\Mode;
 use App\Entity\Invoice\Invoice;
 use App\Repository\Invoice\InvoiceRepositoryInterface;
 use App\Tests\Functional\AbstractFunctionalTestCase;
+use PHPUnit\Framework\Attributes\Test;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class CreateInvoiceTest extends AbstractFunctionalTestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function it_should_fill_form_and_create_standard_bitpay_invoice(): void
     {
         /** @var BitPayConfigurationInterface $configuration */
@@ -57,9 +56,7 @@ class CreateInvoiceTest extends AbstractFunctionalTestCase
         self::assertEquals(23.54, $invoice->getPrice());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_should_fill_form_and_create_donation_bitpay_invoice(): void
     {
         $client = static::createClient();

@@ -24,7 +24,7 @@ class UpdateInvoiceUsingBitPayIpn
     private Logger $logger;
     private BitPayInvoiceToEntityConverter $bitPayInvoiceToEntityConverter;
     private SendUpdateInvoiceEventStreamNotification $sendUpdateInvoiceNotification;
-    private BitPayIpnValidator $bitPayIpnValidator;
+    private BitPayIpnValidatorInterface $bitPayIpnValidator;
 
     public function __construct(
         InvoiceRepositoryInterface $invoiceRepository,
@@ -33,7 +33,7 @@ class UpdateInvoiceUsingBitPayIpn
         BitPayInvoiceToEntityConverter $bitPayInvoiceToEntityConverter,
         SendUpdateInvoiceEventStreamNotification $sendUpdateInvoiceEventStreamNotification,
         Logger $logger,
-        BitPayIpnValidator $bitPayIpnValidator
+        BitPayIpnValidatorInterface $bitPayIpnValidator
     ) {
         $this->invoiceRepository = $invoiceRepository;
         $this->bitPayClientFactory = $bitPayClientFactory;

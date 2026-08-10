@@ -17,14 +17,12 @@ use App\Configuration\Hero;
 use App\Configuration\Mode;
 use App\Configuration\PosData;
 use App\Exception\ValidationFailed;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 class PosParamsValidatorTest extends TestCase
 {
-    /**
-     * @test
-     * @throws \PHPUnit\Framework\MockObject\Exception
-     */
+    #[Test]
     public function it_should_throws_exception_for_missing_value_for_required_field()
     {
         $this->expectException(ValidationFailed::class);
@@ -40,9 +38,7 @@ class PosParamsValidatorTest extends TestCase
         $testedClass->execute($params);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_should_throws_exception_for_missing_price(): void
     {
         $priceField = new Field();
@@ -63,9 +59,7 @@ class PosParamsValidatorTest extends TestCase
         $testedClass->execute($params);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_should_returns_validated_params_without_unnecessary(): void
     {
         $priceField = new Field();

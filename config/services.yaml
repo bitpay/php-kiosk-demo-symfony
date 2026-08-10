@@ -19,6 +19,14 @@ services:
     App\Configuration\BitPayConfiguration:
         factory: ['@App\Configuration\BitPayConfigurationFactoryInterface', 'create']
 
+    App\Service\Invoice\Update\BitPayIpnValidator:
+        autowire: true
+        autoconfigure: true
+
+    App\Service\Invoice\Update\BitPayIpnValidatorInterface:
+        alias: App\Service\Invoice\Update\BitPayIpnValidator
+        public: true
+
     App\Service\Invoice\Create\CreateInvoiceValidator:
         factory: ['@App\Service\Invoice\Create\CreateInvoiceValidatorFactory', 'create']
 

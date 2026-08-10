@@ -9,13 +9,12 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Configuration;
 
 use App\Configuration\Hero;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 class HeroTest extends TestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function it_should_return_bg_color(): void
     {
         $bgColor = '#123';
@@ -24,9 +23,7 @@ class HeroTest extends TestCase
         self::assertEquals($bgColor, $hero->getBgColor());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_should_return_title(): void
     {
         $title = 'someTitle';
@@ -35,9 +32,7 @@ class HeroTest extends TestCase
         self::assertEquals($title, $hero->getTitle());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_should_return_body(): void
     {
         $body = 'someBody';

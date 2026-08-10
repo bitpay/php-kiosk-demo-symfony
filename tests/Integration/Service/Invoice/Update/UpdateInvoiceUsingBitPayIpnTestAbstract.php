@@ -20,13 +20,11 @@ use BitPaySDK\Client;
 use BitPaySDK\Model\Facade;
 use BitPaySDK\Model\Invoice\Invoice;
 use BitPaySDK\PosClient;
+use PHPUnit\Framework\Attributes\Test;
 
 class UpdateInvoiceUsingBitPayIpnTestAbstract extends AbstractIntegrationTestCase
 {
-    /**
-     * @test
-     * @throws \JsonException
-     */
+    #[Test]
     public function it_should_not_update_invoice_for_invalid_bitpay_order_id(): void
     {
         // given
@@ -63,10 +61,7 @@ class UpdateInvoiceUsingBitPayIpnTestAbstract extends AbstractIntegrationTestCas
         $this->getTestedClass()->byUuid($uuid, [], []);
     }
 
-    /**
-     * @test
-     * @throws \JsonException
-     */
+    #[Test]
     public function it_should_update_invoice(): void
     {
         // given

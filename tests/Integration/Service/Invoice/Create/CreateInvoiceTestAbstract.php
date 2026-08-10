@@ -18,12 +18,11 @@ use BitPaySDK\Model\Facade;
 use BitPaySDK\Model\Invoice\Invoice;
 use BitPaySDK\PosClient;
 use App\Tests\ExampleSdkInvoice;
+use PHPUnit\Framework\Attributes\Test;
 
 class CreateInvoiceTestAbstract extends AbstractIntegrationTestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function it_should_create_kiosk_invoice(): void
     {
         $container = static::getContainer();

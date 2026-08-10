@@ -18,7 +18,7 @@ uses an embedded sqlite database to make it easy to start. Feel free to use othe
 ## Prerequisites
 
 - BitPay Account
-- PHP 8.1
+- PHP 8.2
 
 ## Configuration
 

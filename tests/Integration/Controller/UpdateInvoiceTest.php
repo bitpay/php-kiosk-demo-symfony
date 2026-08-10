@@ -17,18 +17,24 @@ use App\Repository\Invoice\InvoiceRepositoryInterface;
 use App\Factory\BitPayClientFactory;
 use BitPaySDK\Client;
 use App\Service\Invoice\Update\SendMercureUpdateInvoiceEventStream;
-use BitPaySDK\Model\Invoice\Invoice;
+use App\Service\Invoice\Update\BitPayIpnValidatorInterface;
+use PHPUnit\Framework\Attributes\Test;
 
 class UpdateInvoiceTest extends WebTestCase
 {
-    /**
-     * @test
-     * @throws \JsonException
-     */
+    #[Test]
     public function it_should_throws_404_for_update_invoice_with_non_existing_uuid(): void
     {
         $json = file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . 'updateInvoice.json');
         $client = static::createClient();
+        $container = static::getContainer();
+
+        // Decode and re-encode to validate JSON
+        $json = json_encode(json_decode($json, true));
+
+        // Mock the validator so it doesn't interfere with the test
+        $validatorMock = $this->createMock(BitPayIpnValidatorInterface::class);
+        $container->set(BitPayIpnValidatorInterface::class, $validatorMock);
 
         $client->request(
             'POST',
@@ -41,10 +47,7 @@ class UpdateInvoiceTest extends WebTestCase
         self::assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
     }
 
-    /**
-     * @test
-     * @throws \JsonException
-     */
+    #[Test]
     public function it_should_update_invoice_with_bitpay_ipn(): void
     {
         $json = json_encode(json_decode(file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . 'updateInvoice.json'), true));

@@ -13,28 +13,27 @@ use App\Exception\MissingEntity;
 use App\Factory\BitPayClientFactory;
 use App\Repository\Invoice\InvoiceRepositoryInterface;
 use App\Service\Invoice\BitPayInvoiceToEntityConverter;
+use App\Service\Invoice\Update\BitPayIpnValidatorInterface;
 use App\Service\Invoice\Update\SendUpdateInvoiceEventStreamNotification;
 use App\Service\Invoice\Update\UpdateInvoiceUsingBitPayIpn;
 use App\Service\Shared\Logger;
 use App\Tests\ExampleInvoice;
 use App\Tests\ExampleSdkInvoice;
-use BitPaySDK\Client;
 use BitPaySDK\Model\Facade;
-use BitPaySDK\Model\Invoice\Invoice;
 use BitPaySDK\PosClient;
 use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
-class UpdateInvoiceUsingBitPayIpnTestCase extends TestCase
+class UpdateInvoiceUsingBitPayIpnTest extends TestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function it_should_throws_exception_for_missing_invoice(): void
     {
         $this->expectException(MissingEntity::class);
         $repository = $this->getRepository();
         $repository->method('findOneByUuid')->willReturn(null);
+        $ipnValidator = $this->createMock(BitPayIpnValidatorInterface::class);
 
         $testedClass = new UpdateInvoiceUsingBitPayIpn(
             $repository,
@@ -42,14 +41,13 @@ class UpdateInvoiceUsingBitPayIpnTestCase extends TestCase
             $this->getBitPayConfiguration(),
             $this->getBitPayInvoiceToEntityConverter(),
             $this->getSendUpdateInvoiceEventStream(),
-            $this->getLogger()
+            $this->getLogger(),
+            $ipnValidator
         );
-        $testedClass->byUuid('12312', null);
+        $testedClass->byUuid('12312', [], []);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_should_update_invoice_using_bitpay_update_response(): void
     {
         // given
@@ -66,6 +64,7 @@ class UpdateInvoiceUsingBitPayIpnTestCase extends TestCase
         $bitPayClientFactory->expects(self::once())->method('create')->willReturn($sdkClient);
         $bitPayConfiguration->method('getFacade')->willReturn('pos');
         $bitPayConfiguration->method('isSignRequest')->willReturn(false);
+        $ipnValidator = $this->createMock(BitPayIpnValidatorInterface::class);
 
         $testedClass = new UpdateInvoiceUsingBitPayIpn(
             $repository,
@@ -73,7 +72,8 @@ class UpdateInvoiceUsingBitPayIpnTestCase extends TestCase
             $bitPayConfiguration,
             $bitPayInvoiceToEntityConverter,
             $sendUpdateInvoiceEventStreamNotification,
-            $logger
+            $logger,
+            $ipnValidator
         );
 
         // then
@@ -88,7 +88,7 @@ class UpdateInvoiceUsingBitPayIpnTestCase extends TestCase
         $sendUpdateInvoiceEventStreamNotification->expects(self::once())->method('execute');
 
         // when
-        $testedClass->byUuid($uuid, null);
+        $testedClass->byUuid($uuid, [], []);
     }
 
     private function getRepository(): InvoiceRepositoryInterface|MockObject
@@ -116,7 +116,7 @@ class UpdateInvoiceUsingBitPayIpnTestCase extends TestCase
         return $this->createMock(Logger::class);
     }
 
-    private function getBitPayInvoiceToEntityConverter()
+    private function getBitPayInvoiceToEntityConverter(): BitPayInvoiceToEntityConverter|MockObject
     {
         return $this->createMock(BitPayInvoiceToEntityConverter::class);
     }

@@ -13,14 +13,13 @@ use App\Repository\Invoice\InvoiceRepositoryInterface;
 use App\Service\Invoice\BitPayInvoicePreparator;
 use App\Service\Invoice\BitPayInvoiceToEntityConverter;
 use App\Tests\ExampleSdkInvoice;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\Serializer;
 
 class BitPayInvoiceToEntityConverterTest extends TestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function it_should_map_bitpay_invoice_to_application_invoice(): void
     {
         $serializer = $this->createMock(Serializer::class);

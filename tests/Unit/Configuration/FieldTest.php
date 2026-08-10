@@ -10,13 +10,12 @@ namespace App\Tests\Unit\Configuration;
 
 use App\Configuration\Field;
 use App\Configuration\Option;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 class FieldTest extends TestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function it_should_provide_currency(): void
     {
         $currency = 'USD';
@@ -26,9 +25,7 @@ class FieldTest extends TestCase
         $this->assertEquals($currency, $field->getCurrency());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_should_provide_id(): void
     {
         $field = new Field();
@@ -38,9 +35,7 @@ class FieldTest extends TestCase
         $this->assertEquals($id, $field->getId());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_should_provide_label(): void
     {
         $field = new Field();
@@ -50,9 +45,7 @@ class FieldTest extends TestCase
         $this->assertEquals($label, $field->getLabel());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_should_provide_name(): void
     {
         $name = 'someName';
@@ -62,9 +55,7 @@ class FieldTest extends TestCase
         $this->assertEquals($name, $field->getName());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_should_provide_options(): void
     {
         $option = $this->createMock(Option::class);
@@ -75,9 +66,7 @@ class FieldTest extends TestCase
         $this->assertEquals($options, $field->getOptions());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_should_provide_required(): void
     {
         $field = new Field();
@@ -89,9 +78,7 @@ class FieldTest extends TestCase
         $this->assertEquals(false, $field->isRequired());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_should_provide_type(): void
     {
         $type = 'someType';

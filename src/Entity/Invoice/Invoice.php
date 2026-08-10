@@ -296,7 +296,7 @@ class Invoice
     }
 
     /**
-     * @return bool
+     * @return string
      */
     public function getExceptionStatus(): string
     {

@@ -11,13 +11,12 @@ namespace App\Tests\Unit\Configuration;
 use App\Configuration\Design;
 use App\Configuration\Hero;
 use App\Configuration\PosData;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 class DesignTest extends TestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function it_should_provide_hero(): void
     {
         $hero = $this->createMock(Hero::class);
@@ -28,9 +27,7 @@ class DesignTest extends TestCase
         self::assertEquals($hero, $testedClass->getHero());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_should_provide_logo(): void
     {
         $hero = $this->createMock(Hero::class);
@@ -41,9 +38,7 @@ class DesignTest extends TestCase
         self::assertEquals($logo, $testedClass->getLogo());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_should_provide_pos_data(): void
     {
         $hero = $this->createMock(Hero::class);
