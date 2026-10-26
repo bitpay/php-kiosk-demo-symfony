@@ -18,7 +18,7 @@ uses an embedded sqlite database to make it easy to start. Feel free to use othe
 ## Prerequisites
 
 - BitPay Account
-- PHP 8.2
+- PHP 8.2 or newer (the Docker image uses PHP 8.3)
 
 ## Configuration
 
